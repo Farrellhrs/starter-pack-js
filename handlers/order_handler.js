@@ -40,4 +40,39 @@ async function getOneByOrderId(req, res) {
   }
 }
 
-module.exports = { create, getList, getOneByOrderId };
+// Handler to update an order by order id
+async function updateOneByOrderId(req, res) {
+  try {
+    const orderId = req.params.id;
+    const updateData = req.body;
+
+    const updatedOrder = await orderUsecase.updateOneByOrderId(orderId, updateData);
+    if (!updatedOrder) {
+      return res.status(404).json({ message: 'Order not found or failed to update' });
+    }
+
+    res.json({ message: 'Order updated successfully', updatedOrder });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error', message: error.message });
+  }
+}
+
+// Handler to delete an order by order id
+async function deleteOneByOrderId(req, res) {
+  try {
+    const orderId = req.params.id;
+
+    const deletedOrder = await orderUsecase.deleteOneByOrderId(orderId);
+    if (!deletedOrder) {
+      return res.status(404).json({ message: 'Order not found or failed to delete' });
+    }
+
+    res.json({ message: 'Order deleted successfully', deletedOrder });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error', message: error.message });
+  }
+}
+
+module.exports = { create, getList, getOneByOrderId, updateOneByOrderId, deleteOneByOrderId };
