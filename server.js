@@ -13,9 +13,8 @@ connectDB();
 app.use(initializePassport());
 app.use('/digistar', router);
 
-app.use((err, req, res) => {
-  console.error(err.stack);
-  res.status(500).send('Something went wrong!');
+app.get('/some-route', (req, res) => {
+  res.status(200).json({ message: 'Success' });
 });
 
 app.listen(PORT, () => {

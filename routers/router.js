@@ -14,6 +14,7 @@ router.post("/user/register", userHandler.register);
 router.get("/user", userHandler.getList);
 router.get("/user/:id", userHandler.getOneByUserId);
 router.put("/user/:id", userHandler.updateOne);
+router.delete("/user/:id", userHandler.deleteOne )
 
 // Role routes
 router.post("/role", roleHandler.create);
